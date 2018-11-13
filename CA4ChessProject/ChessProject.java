@@ -166,54 +166,54 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     Square tmp4Square = new Square(tmpX2, tmpY1, piece);
 
     if (y == 1) {
-      validM1 = new Move(getWhitePawnSquares, tmp2Square);
+      validM = new Move(getWhitePawnSquares, tmp2Square);
       if (!piecePresent(((tmp2Square.getXC() * 75) + 20), (((tmp2Square.getYC() * 75) + 20)))
-      && !piecePresent(((tmp1Square.getXC() * 75) + 20), (((tmp1Square.getYC() * 75) + 20)))) {
-        moves.push(validM1);
+          && !piecePresent(((tmp1Square.getXC() * 75) + 20), (((tmp1Square.getYC() * 75) + 20)))) {
+        moves.push(validM);
       } else {
         if (!(tmpX1 > 7)) {
           if (piecePresent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
             if (checkWhiteOponent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
-              moves.push(validM1);
+              moves.push(validM);
             }
           }
         }
         if (!(tmpX2 < 0)) {
           if (piecePresent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
             if (checkWhiteOponent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
-              moves.push(validM1);
+              moves.push(validM);
             }
-          }
-        }
-       }
-    }
-
-    if (!(tmpY1 > 7)) {
-      validM = new Move(getWhitePawnSquares, tmp1Square);
-      if (!piecePresent(((tmp1Square.getXC() * 75) + 20), (((tmp1Square.getYC() * 75) + 20)))) {
-        moves.push(validM);
-      }else{
-      if (!(tmpX1 > 7)) {
-        validM2 = new Move(getWhitePawnSquares, tmp3Square);
-        if (piecePresent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
-          if (checkWhiteOponent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
-            moves.push(validM2);
-            System.out.println("Move");
           }
         }
       }
     }
-  }
+
+    if (!(tmpY1 > 7)) {
+      validM1 = new Move(getWhitePawnSquares, tmp1Square);
+      if (!piecePresent(((tmp1Square.getXC() * 75) + 20), (((tmp1Square.getYC() * 75) + 20)))) {
+        moves.push(validM1);
+      } else {
+        if (!(tmpX1 > 7)) {
+          validM2 = new Move(getWhitePawnSquares, tmp3Square);
+          if (piecePresent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
+            if (checkWhiteOponent(((tmp3Square.getXC() * 75) + 20), (((tmp3Square.getYC() * 75) + 20)))) {
+              moves.push(validM2);
+              System.out.println("Move");
+            }
+          }
+        }
+      }
+    }
 
     if (!(tmpX2 < 0)) {
-                validM3 = new Move(getWhitePawnSquares, tmp4Square);
-                if (piecePresent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
-                    if (checkWhiteOponent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
-                        moves.push(validM3);
-                    }
-                }
-            }
-     return moves;
+      validM3 = new Move(getWhitePawnSquares, tmp4Square);
+      if (piecePresent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
+        if (checkWhiteOponent(((tmp4Square.getXC() * 75) + 20), (((tmp4Square.getYC() * 75) + 20)))) {
+          moves.push(validM3);
+        }
+      }
+    }
+    return moves;
   }
 
   /*
@@ -880,6 +880,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     Stack white = findWhitePieces();
     Stack completeMoves = new Stack();
     Move tmp;
+
     while (!white.empty()) {
       Square s = (Square) white.pop();
       String tmpString = s.getName();
@@ -890,17 +891,17 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
        * Opponent
        */
       if (tmpString.contains("Knight")) {
-         tmpMoves = getKnightMoves(s.getXC(), s.getYC(), s.getName());
+        // tmpMoves = getKnightMoves(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Bishop")) {
-         tmpMoves = getBishopMoves(s.getXC(), s.getYC(), s.getName());
+        // tmpMoves = getBishopMoves(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Pawn")) {
-          tmpMoves = getWhitePawnSquares(s.getXC(), s.getYC(), s.getName());
+        tmpMoves = getWhitePawnSquares(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Rook")) {
-         tmpMoves = getRookMoves(s.getXC(), s.getYC(), s.getName());
+        // tmpMoves = getRookMoves(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Queen")) {
-         tmpMoves = getQueenMoves(s.getXC(), s.getYC(), s.getName());
+        // tmpMoves = getQueenMoves(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("King")) {
-        tmpMoves = getKingSquares(s.getXC(), s.getYC(), s.getName());
+        // tmpMoves = getKingSquares(s.getXC(), s.getYC(), s.getName());
       }
 
       while (!tmpMoves.empty()) {
@@ -983,6 +984,14 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           JOptionPane.showMessageDialog(null, "The AI Agent has won!");
           System.exit(0);
         }
+
+        if (startingPoint.getName().contains("Pawn") && landingPoint.getYC() == 7) {
+          parentlanding.remove(0);
+          pieces = new JLabel(new ImageIcon("WhiteQueen.png"));
+          landingPanelID = (landingPoint.getYC() * 8) + landingPoint.getXC();
+          panels = (JPanel) chessBoard.getComponent(landingPanelID);
+          panels.add(pieces);
+        }
       } else {
         pieces = new JLabel(new ImageIcon(startingPoint.getName() + ".png"));
         int landingPanelID = (landingPoint.getYC() * 8) + landingPoint.getXC();
@@ -994,6 +1003,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
       }
       white2Move = false;
     }
+
   }
 
   /*
