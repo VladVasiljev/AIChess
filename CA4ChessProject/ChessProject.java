@@ -894,7 +894,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         // tmpMoves = getKnightMoves(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Bishop")) {
         // tmpMoves = getBishopMoves(s.getXC(), s.getYC(), s.getName());
-      } else if (tmpString.contains("Pawn")) {
+      } else if (tmpString.contains("WhitePawn")) {
         tmpMoves = getWhitePawnSquares(s.getXC(), s.getYC(), s.getName());
       } else if (tmpString.contains("Rook")) {
         // tmpMoves = getRookMoves(s.getXC(), s.getYC(), s.getName());
@@ -985,7 +985,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           System.exit(0);
         }
 
-        if (startingPoint.getName().contains("Pawn") && landingPoint.getYC() == 7) {
+        if (startingPoint.getName().contains("WhitePawn") && landingPoint.getYC() == 7) {
           parentlanding.remove(0);
           pieces = new JLabel(new ImageIcon("WhiteQueen.png"));
           landingPanelID = (landingPoint.getYC() * 8) + landingPoint.getXC();
