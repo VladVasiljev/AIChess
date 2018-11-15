@@ -801,21 +801,55 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
   // Method to return all the squares that are being attacked by White Pieces Code
   // Snippet 3
-  // private Stack getWhiteAttackingSquares(Stack pieces) {
-  // while (!pieces.empty()) {
-  // Square s = (Square) pieces.pop();
-  // String tmpString = s.getName();
-  // if (tmpString.contains("Knight")) {
-  // tempK = getKnightMoves(s.getXC(), s.getYC(), s.getName());
-  // while (!tempk.empty()) {
-  // Square tempKnight = (Square) tempK.pop();
-  // knight.push(tempKnight);
-  // }
-  // } else if (tmpString.contains("Bishop")) {
-
-  // }
-  // }
-  // }
+  private Stack getWhiteAttackingSquares(Stack pieces) {
+    while (!pieces.empty()) {
+      Square s = (Square) pieces.pop();
+      String tmpString = s.getName();
+      if (tmpString.contains("Knight")) {
+          tempK = getKnightMoves(s.getXC(), s.getYC(), s.getName());
+        while (!tempK.empty()) {
+          Square tempKnight = (Square) tempK.pop();
+          pieces.push(tempKnight);
+        }
+      }
+      else if(tmpString.contains("Bishop")){
+        Stack tempB = getBishopMoves(s.getXC(), s.getYC(), s.getName());
+        while (!tempB.empty()) {
+          Square tempBishop = (Square) tempB.pop();
+          pieces.push(tempBishop);
+        }
+      }
+      else if(tmpString.contains("Rook")){
+        Stack tempR = getRookMoves(s.getXC(), s.getYC(), s.getName());
+        while (!tempR.empty()) {
+          Square tempRook = (Square) tempR.pop();
+          pieces.push(tempRook);
+        }
+      }
+      else if(tmpString.contains("Queen")){
+        Stack tempQ = getQueenMoves(s.getXC(), s.getYC(), s.getName());
+        while (!tempQ.empty()) {
+          Square tempQueen = (Square) tempQ.pop();
+          pieces.push(tempQueen);
+        }
+      }
+      else if(tmpString.contains("King")){
+        Stack tempKin = getKingSquares(s.getXC(), s.getYC(), s.getName());
+        while (!tempKin.empty()) {
+          Square tempKing = (Square) tempKin.pop();
+          pieces.push(tempKing);
+        }
+      }
+      else if(tmpString.contains("Pawn")){
+        Stack tempP = getWhitePawnSquares(s.getXC(), s.getYC(), s.getName());
+        while (!tempP.empty()) {
+          Square tempPawn = (Square) tempP.pop();
+          pieces.push(tempPawn);
+        }
+      }
+    }
+    return pieces;
+}
 
   /*
    * This method checks if there is a piece present on a particular square.

@@ -21,7 +21,6 @@ public class AIAgent{
       possibilities.pop();
     }
     Move selectedMove = (Move)possibilities.pop();
-    System.out.println(" "+possibilities.size());
     return selectedMove;
   }
 
