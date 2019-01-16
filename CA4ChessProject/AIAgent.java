@@ -24,27 +24,27 @@ public class AIAgent {
   public Move nextBestMove(Stack whitePossibleMoves, Stack blackPossibleMoves) {
     Stack whitePieces = (Stack) whitePossibleMoves.clone();// Getting stack of moves that white pieces can make
     Stack black = (Stack) blackPossibleMoves.clone();// Getting stack of moves that black piece can make
-    Move whiteMove, attackingMove, normalMove;
-    Square blackPosition;
+    Move whiteMove, attackingMove, regularMove;
     int Points = 0;// Points for pieces
     int chosenPiece = 0;
+    Square blackPosition;
     attackingMove = null;
 
     while (!whitePossibleMoves.empty()) {
       whiteMove = (Move) whitePossibleMoves.pop();
-      normalMove = whiteMove;
+      regularMove = whiteMove;
 
       // Assiging a Point to the centre of the playing board
-      if ((normalMove.getStart().getYC() < normalMove.getLanding().getYC()) && (normalMove.getLanding().getXC() == 3)
-          && (normalMove.getLanding().getYC() == 3)
-          || (normalMove.getLanding().getXC() == 4) && (normalMove.getLanding().getYC() == 3)
-          || (normalMove.getLanding().getXC() == 3) && (normalMove.getLanding().getYC() == 4)
-          || (normalMove.getLanding().getXC() == 4) && (normalMove.getLanding().getYC() == 4)) {
+      if ((regularMove.getStart().getYC() < regularMove.getLanding().getYC()) && (regularMove.getLanding().getXC() == 3)
+          && (regularMove.getLanding().getYC() == 3)
+          || (regularMove.getLanding().getXC() == 4) && (regularMove.getLanding().getYC() == 3)
+          || (regularMove.getLanding().getXC() == 3) && (regularMove.getLanding().getYC() == 4)
+          || (regularMove.getLanding().getXC() == 4) && (regularMove.getLanding().getYC() == 4)) {
         Points = 0;
         // Assiging nextBestMove
         if (Points > chosenPiece) {
           chosenPiece = Points;
-          attackingMove = normalMove;
+          attackingMove = regularMove;
         }
       }
       // Returning attackingMove if piece has higher Point value than centre position
@@ -60,8 +60,8 @@ public class AIAgent {
       while (!black.isEmpty()) {
         Points = 0;
         blackPosition = (Square) black.pop();
-        if ((normalMove.getLanding().getXC() == blackPosition.getXC())
-            && (normalMove.getLanding().getYC() == blackPosition.getYC())) {
+        if ((regularMove.getLanding().getXC() == blackPosition.getXC())
+            && (regularMove.getLanding().getYC() == blackPosition.getYC())) {
           // Checking for black pawns and assigning points to it
           if (blackPosition.getName().equals("BlackPawn")) {
             Points = 100;
@@ -90,7 +90,7 @@ public class AIAgent {
         // Updating nextBestMove
         if (Points > chosenPiece) {
           chosenPiece = Points;
-          attackingMove = normalMove;
+          attackingMove = regularMove;
         }
       }
       // Reloading black squares
@@ -105,32 +105,38 @@ public class AIAgent {
 
     return randomMove(whitePieces);// randomMove agent is being returned
   }
-
+  //This agent is not working they way it's intented to work
+  //What needs to be done first is get and store positions of all Black pieces
+  //Then we store all of the the possible moves for all black pieces.
+  //We then apply evaluation function to all black moves
+  //We then need MiniMax implementation, this will allow us to go into the depth of the tree, for example depth 0 is the start, we can go down the tree until dept 1 or 2
+  //We then can add Alpha-Betta pruning to optimize
+  //We can then go further and return bestNextMove and if that's not possible we can return randomMoves.
   // Start of two levels deeps
   public Move twoLevelsDeep(Stack whitePossibleMoves, Stack blackPossibleMoves, int depth) {
     Stack blackPieces = (Stack) blackPossibleMoves.clone();// Getting stack of moves that black pieces can make
     Stack whitePieces = (Stack) whitePossibleMoves.clone();// Getting stack of moves that white pieces can make
-    Move whiteMove, attackingMove, normalMove;
-    Square blackPosition;
+    Move whiteMove, attackingMove, regularMove;
     int Points = 0;// Points for pieces
     int chosenPiece = 0;
+    Square blackPosition;
     attackingMove = null;
 
     while (!whitePossibleMoves.empty()) {
       whiteMove = (Move) whitePossibleMoves.pop();
-      normalMove = whiteMove;
+      regularMove = whiteMove;
 
       // Assiging a Point to the centre of the playing board
-      if ((normalMove.getStart().getYC() < normalMove.getLanding().getYC()) && (normalMove.getLanding().getXC() == 3)
-          && (normalMove.getLanding().getYC() == 3)
-          || (normalMove.getLanding().getXC() == 4) && (normalMove.getLanding().getYC() == 3)
-          || (normalMove.getLanding().getXC() == 3) && (normalMove.getLanding().getYC() == 4)
-          || (normalMove.getLanding().getXC() == 4) && (normalMove.getLanding().getYC() == 4)) {
+      if ((regularMove.getStart().getYC() < regularMove.getLanding().getYC()) && (regularMove.getLanding().getXC() == 3)
+          && (regularMove.getLanding().getYC() == 3)
+          || (regularMove.getLanding().getXC() == 4) && (regularMove.getLanding().getYC() == 3)
+          || (regularMove.getLanding().getXC() == 3) && (regularMove.getLanding().getYC() == 4)
+          || (regularMove.getLanding().getXC() == 4) && (regularMove.getLanding().getYC() == 4)) {
         Points = 0;
         // Assiging nextBestMove
         if (Points > chosenPiece) {
           chosenPiece = Points;
-          attackingMove = normalMove;
+          attackingMove = regularMove;
         }
       }
       // Returning attackingMove if piece has higher Point value than centre position
@@ -146,8 +152,8 @@ public class AIAgent {
       while (!blackPieces.isEmpty()) {
         Points = 0;
         blackPosition = (Square) blackPieces.pop();
-        if ((normalMove.getLanding().getXC() == blackPosition.getXC())
-            && (normalMove.getLanding().getYC() == blackPosition.getYC())) {
+        if ((regularMove.getLanding().getXC() == blackPosition.getXC())
+            && (regularMove.getLanding().getYC() == blackPosition.getYC())) {
           // Checking for black pawns and assigning points to it
           if (blackPosition.getName().equals("BlackPawn")) {
             Points = 100;
@@ -176,7 +182,7 @@ public class AIAgent {
         // Updating nextBestMove
         if (Points > chosenPiece) {
           chosenPiece = Points;
-          attackingMove = normalMove;
+          attackingMove = regularMove;
         }
       }
       // Reloading black squares
